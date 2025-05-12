@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrouchy <hrouchy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hugz <hugz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:28:53 by hrouchy           #+#    #+#             */
-/*   Updated: 2025/05/07 15:00:26 by hrouchy          ###   ########.fr       */
+/*   Updated: 2025/05/09 22:08:56 by hugz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_idformat(va_list args, char *str, int index)
 	int	char_count;
 	
 	char_count = 0;
-	if (str[index] == '%')
+	if (str[index] != '%')
 			return(0);
 	if (str[index+1]=='c')
 		char_count = ft_putchar(va_arg(args, int));
@@ -56,8 +56,9 @@ int	ft_idformat(va_list args, char *str, int index)
 	if (str[index+1] == 'i')
 		char_count = ft_putnb(va_arg(args, int));
 	if (str[index + 1] == 'd')
-	if (str[index+1] == 'u')
 		char_count = ft_putnb(va_arg(args, int));
+	if (str[index+1] == 'u')
+		char_count = ft_putunsigned(va_arg(args, int));
 	if (str[index+1] == 'x') 
 		char_count = ft_puthexa(va_arg(args,unsigned int),0);
 	if (str[index+1] == 'X')
@@ -72,22 +73,22 @@ int	ft_printf(const char *s, ...)
 {
 	va_list args;
 	
-	va_start(args, s);
 	int	index;
+	int char_count;
 	char *format = (char *)s;
 	va_start(args, s);
 	index = 0;
+	char count = 0;
 	while (format[index])
 	{
 		if (format[index] == '%' && format[index+1])
 		{
-			va_arg(args, char *);
-			ft_idformat(args, format, index);
-			index++;
-			index++;
+			char_count += ft_idformat(args, format, index);
+			index+=2;
 			
 		}	
 		ft_putchar(format[index]);
+		char_count++;
 		index++;
 	}
 	va_end(args);
@@ -95,7 +96,8 @@ int	ft_printf(const char *s, ...)
 }
 
 
-int main()
-{
-	ft_printf("%s facteur %s passe %s","le","est","ici");
-}
+// int main()
+// {
+// 	char *str = "hello world";
+// 	ft_printf("le facteur a deposer ; %d lettre(s) a %s a l'adresse %p ",14, "rioms es montagnes", str );
+// }
