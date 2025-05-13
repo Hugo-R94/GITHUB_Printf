@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrouchy <hrouchy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hugz <hugz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 12:30:33 by hrouchy           #+#    #+#             */
-/*   Updated: 2025/05/13 15:43:42 by hrouchy          ###   ########.fr       */
+/*   Updated: 2025/05/13 22:11:27 by hugz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,23 @@ int	ft_puthexa(unsigned long int nb, bool up)
 {
 	char			*base;
 	int				count;
-	unsigned int	n;
+	//unsigned int	n;
 
 	count = 0;
 	if (up == 0)
 		base = "0123456789abcdef";
 	else
 		base = "0123456789ABCDEF";
-	if (nb < 0)
-	{
-		count += ft_putchar ('-');
-		n = (unsigned int)nb * -1;
-	}
-	if (nb >= 0)
-		n = (unsigned int)nb;
-	if (n >= 16)
-		count += ft_puthexa (n / 16, up);
-	count += ft_putchar(base[(n % 16)]);
+	// if (nb < 0)
+	// {
+	// 	count += ft_putchar ('-');
+	// 	n = (unsigned int)nb * -1;
+	// }
+	// if (nb >= 0)
+	// 	n = (unsigned int)nb;
+	if (nb >= 16)
+		count += ft_puthexa (nb / 16, up);
+	count += ft_putchar(base[(nb % 16)]);
 	return (count);
 }
 
