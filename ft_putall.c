@@ -3,28 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hugz <hugz@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hrouchy <hrouchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 12:30:33 by hrouchy           #+#    #+#             */
-/*   Updated: 2025/05/09 22:08:09 by hugz             ###   ########.fr       */
+/*   Updated: 2025/05/13 15:43:42 by hrouchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdint.h>
-#include "libft.h"
+#include "ft_printf.h"
 
-int	ft_putchar(int c)
+int	ft_putchar(unsigned int c)
 {
 	write(1, &c, 1);
-	return(1);
+	return (1);
 }
 
 int	ft_putstr(char *str)
 {
 	int	index;
-	
+
 	index = 0;
+	if (str == NULL)
+	{
+		ft_putstr("(null)");
+		return (6);
+	}
 	while (str[index])
 		ft_putchar(str[index++]);
 	return (index);
@@ -34,7 +37,7 @@ int	ft_putnb(int nb)
 {
 	unsigned int	n;
 	int				count;
-	
+
 	count = 0;
 	if (nb < 0)
 	{
@@ -53,7 +56,7 @@ int	ft_putunsigned(int nb)
 {
 	unsigned int	n;
 	int				count;
-	
+
 	count = 0;
 	n = (unsigned int)nb;
 	if (n >= 10)
@@ -62,12 +65,12 @@ int	ft_putunsigned(int nb)
 	return (count);
 }
 
-int	ft_puthexa(int nb, bool up)
+int	ft_puthexa(unsigned long int nb, bool up)
 {
 	char			*base;
 	int				count;
 	unsigned int	n;
-	
+
 	count = 0;
 	if (up == 0)
 		base = "0123456789abcdef";
@@ -81,20 +84,8 @@ int	ft_puthexa(int nb, bool up)
 	if (nb >= 0)
 		n = (unsigned int)nb;
 	if (n >= 16)
-		count += ft_puthexa (n / 16,up);
-	count += ft_putchar(base[(n%16)]);
-	return (count);
-}
-
-int	ft_putptr(void *ptr)
-{
-	int	count;
-	int up;
-
-	up = 0;
-	count = 0;
-	count += ft_putstr("0x");
-	count += ft_puthexa((uintptr_t)ptr, up);
+		count += ft_puthexa (n / 16, up);
+	count += ft_putchar(base[(n % 16)]);
 	return (count);
 }
 
@@ -116,7 +107,6 @@ int	ft_putptr(void *ptr)
 // 	ft_putnb(len_hexa);
 // 	ft_putchar('\n');
 // 	ft_putchar('\n');
-	
 // 	//test putnbr
 // 	ft_putstr("en base 10 ");
 // 	ft_putnb(number);
@@ -126,7 +116,6 @@ int	ft_putptr(void *ptr)
 // 	ft_putnb(len);
 // 	ft_putchar('\n');	
 // 	ft_putchar('\n');
-	
 // 	ft_putstr("l'adresse de  ");
 // 	ft_putnb(number);
 // 	ft_putstr(" est egal a : ");
