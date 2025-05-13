@@ -6,7 +6,7 @@
 /*   By: hrouchy <hrouchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:28:53 by hrouchy           #+#    #+#             */
-/*   Updated: 2025/05/13 17:01:36 by hrouchy          ###   ########.fr       */
+/*   Updated: 2025/05/13 17:15:42 by hrouchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,14 @@ int	ft_printf(const char *s, ...)
 int	ft_putptr(void *ptr)
 {
 	int	count;
-	int	up;
 
-	
 	if (!ptr)
 	{
 		ft_putstr("(nil)");
 		return (5);
 	}
-	up = 0;
 	count = 0;
 	count += ft_putstr("0x");
-	count += ft_puthexa((uintptr_t)ptr, up);
+	count += ft_puthexa((uintptr_t)ptr, 0);
 	return (count);
 }
